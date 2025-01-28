@@ -107,13 +107,26 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Initialize the map
-        var map = L.map('map').setView([51.505, -0.09], 4);
+        var map = L.map('map').setView([46.09724,19.65837], 5);
 
         // Add an OpenStreetMap tile layer
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
         map.locate();
+
+        const addresses = {!! json_encode($geoJson) !!};
+        const addressLayer = L.geoJSON(addresses, {
+            onEachFeature: function(feature, layer) {
+                let popupContent = "";
+                for (const key in feature.properties) {
+                    popupContent += `<b>${key}:</b> ${feature.properties[key]}<br>`;
+                }
+                layer.bindPopup(popupContent);
+            }
+        });
+        addressLayer.addTo(map);
+        console.log('addressses', addresses);
     });
 </script>
     </body>
