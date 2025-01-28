@@ -24,6 +24,8 @@ class AddressFactory extends Factory
             'country_code' => Country::inRandomOrder()->first()->code,
             'zip_code' => substr(preg_replace('/[^0-9]/', '', fake()->postcode()), 0, 6),
             'street_address' => fake()->streetAddress(),
+            'contact_name' => fake()->name(),
+            'contact_phone' => fake()->e164PhoneNumber(),
             'address_type' => AddressType::cases()[array_rand(AddressType::cases())],
             'city' => fake()->city(),
             'company_name' => $this->faker->company(),
