@@ -1,66 +1,157 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# User Management - demo application
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Table of Contents
 
-## About Laravel
+- [Minimum Requirements](#minimum-requirements)
+- [Installation](#installation)
+- [Running Tests](#running-tests)    
+- [Docker Installation](#docker-installation)    
+- [Docker Compose Installation](#docker-compose-installation)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Minimum Requirements
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Docker and Docker Compose**
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Installation
 
-## Learning Laravel
+First, need a fresh installation of Docker and Docker Compose
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 1. Clone the Project
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Clone the repository to your local machine:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+git clone https://github.com/aprojanos/user-management.git
+cd user-management
+```
 
-## Laravel Sponsors
+### 2. Copy Environment File
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Copy the .env.example file to .env
 
-### Premium Partners
+```bash
+cp .env.example .env
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+Copy the .env.testing.example file to .env.testing
+```bash
+cp .env.testing.example .env.testing
+```
 
-## Contributing
+### 3. Set Environment Variables
+In the .env file, you need to set the DB connections and some Host and Elasticsearch params.
+Here is an example configuration:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```env
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=your_database_name # for example laravel
+DB_USERNAME=your_database_username # for example sail
+DB_PASSWORD=your_database_password # for example password
 
-## Code of Conduct
+...
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+ADMIN_PASSWORD=the password for the created admin account (admin@example.com)
+```
 
-## Security Vulnerabilities
+### 4. Build The Containers
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Go to the project root directory, where is the docker-compose.yml file and add the following command:
 
-## License
+```bash
+docker-compose up -d --build
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 5. Install Dependencies:
+
+Install PHP dependencies using Composer:
+
+```bash
+docker exec -it {php_fpm_container_name} composer install
+```
+
+or
+```bash
+docker exec -it {php_fpm_container_name} bash
+composer install
+```
+
+### 6. Generate Application Key
+
+```bash
+docker exec -it {php_fpm_container_name} php artisan key:generate
+```
+
+or
+```bash
+docker exec -it {php_fpm_container_name} bash
+php artisan key:generate
+```
+
+
+### 7. Run Migrations
+
+Run the database migrations with seed:
+
+```bash
+docker exec -it {php_fpm_container_name} php artisan migrate:fresh
+```
+
+or
+
+```bash
+docker exec -it {php_fpm_container_name} bash
+php artisan migrate:fresh
+```
+
+### 8. Install Npm Packages
+
+
+```bash
+docker exec -it {node_container_name} npm install
+```
+
+or
+
+```bash
+docker exec -it {node_container_name} npm install
+```
+
+## Running Tests
+
+Unit tests are written using PHPUnit. To run tests, first configure the .env.testing file
+
+Run the tests:
+
+```bash
+php artisan test
+```
+
+or
+
+```bash
+docker exec -it {php_fpm_container} php artisan test
+```
+
+
+This will execute all tests in the tests directory and provide a summary of test results.
+
+## Docker Installation
+
+### Linux
+
+- Ubuntu: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-22-04
+
+### Windows
+
+- https://docs.docker.com/desktop/windows/install/
+
+## Docker Compose Installation
+
+### Linux
+
+Ubuntu: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-22-04
+
+### Windows
+- Docker automatically installs Docker Compose.
