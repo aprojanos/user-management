@@ -1,6 +1,6 @@
 @import '../css/style.css';
-@import 'toastify-js/src/toastify.css';
-
+@import "leaflet/dist/leaflet.css";
+@import "toastify-js/src/toastify.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

@@ -1,1 +1,1 @@
-<img src="/storage/Erdsoft.png" style="height:40px;"/>
+<img src="/storage/erdsoft_logo.jpg" alt="Erdsoft Logo" style="height:50px;" {{ $attributes }} />

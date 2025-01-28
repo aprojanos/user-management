@@ -10,7 +10,20 @@ class AdminController extends Controller
 {
     public function index()
     {
-        return view('admin.dashboard');
+        $usersByCountry = User::join('addresses', 'users.id', '=', 'addresses.user_id')
+            ->join('countries', 'countries.code', '=', 'addresses.country_code')
+            ->select('countries.name as country', DB::raw('count(*) as total'))
+            ->groupBy('country')
+            // ->havingRaw('total > 2')
+            ->get();
+        $usersByStatus = User::select('status', DB::raw('count(*) as total'))
+            ->groupBy('status')
+            ->get();
+
+        return view('admin.dashboard', [
+            'usersByCountry' => $usersByCountry,
+            'usersByStatus' => $usersByStatus,
+        ]);
     }
 
 }

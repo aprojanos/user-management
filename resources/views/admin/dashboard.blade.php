@@ -6,7 +6,9 @@
     </x-slot>
 
     <div class="py-12">
-        Coming soon...
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8  gap-4">
+            Coming soon...
+        </div>
     </div>
 
 

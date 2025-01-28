@@ -95,7 +95,6 @@
                     <main>
                         <div class="grid">
                         </div>
-
                     </main>
 
                 </div>
