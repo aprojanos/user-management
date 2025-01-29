@@ -117,24 +117,70 @@ chown sail:sail storage -R
 ```bash
 npm install
 ```
+### Exit the container and restart it
+```bash
+exit
+docker compose restart laravel
+```
 
 ### Start Vite server
 
 ```bash
-npm run dev
+docker exec -it {laravel_container_name} npm run dev
 ```
+## Application Usage
+
+The application consists of the following pages:
+
+### Home
+
+`Login`, `Register` functions, link to `Administration pages` for logged in users. 
+Since no other content was specified, the home page contains a `map` showing the locations of the users who have logged in.
+
+### Login
+
+Generated at Laravel Breeze installation, slightly modified
+
+Please the account created during the migration process for the first login:
+
+```
+e-mail: admin@example.com
+password: {ADMIN_PASSWORD provided in .env}
+```
+### Register
+
+Generated at Laravel Breeze installation, slightly modified
+
+New users can register on this page. A confirmation email will be sent during the registration process. Emails are sent to the locally running **Mailpit** server - `.env` settings - which can be used to track emails via its web interface http://localhost:8025
+
+The user can also log in without confirming his email address, but will not have access to the administration pages.
+
+### Profile Settings
+
+Generated at Laravel Breeze installation.
+
+### Admin Dashboard
+
+Home page of the admin pages. 
+As no other content was specified, this was used to display a diagram of the dashboard.
+
+### User Management
+
+This page contains the listing, uploading and modification of users as defined in the assignment.
+
+## Seeding the database
+
+Seeding the database with users and addresses:
+
+```bash
+docker exec -it {laravel_container_name} php artisan db:seed
+```
+
 
 ## Running Tests
 
-### Enter the container
-
 ```bash
-docker exec -it {laravel_container_name} bash
-```
-### Run the tests
-
-```bash
-php artisan test
+docker exec -it {laravel_container_name} php artisan test
 ```
 
 This will execute all tests in the tests directory and provide a summary of test results.
