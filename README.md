@@ -16,7 +16,7 @@
 
 First, need a fresh installation of Docker and Docker Compose
 
-### 1. Clone the Project
+### Clone the Project
 
 Clone the repository to your local machine:
 
@@ -25,7 +25,7 @@ git clone https://github.com/aprojanos/user-management.git
 cd user-management
 ```
 
-### 2. Copy Environment File
+### Copy Environment File
 
 Copy the .env.example file to .env
 
@@ -38,7 +38,7 @@ Copy the .env.testing.example file to .env.testing
 cp .env.testing.example .env.testing
 ```
 
-### 3. Set Environment Variables
+### Set Environment Variables
 In the .env file, you need to set the DB connections and some Host and Elasticsearch params.
 Here is an example configuration:
 
@@ -55,83 +55,87 @@ DB_PASSWORD=your_database_password # for example password
 ADMIN_PASSWORD=the password for the created admin account (admin@example.com)
 ```
 
-### 4. Build The Containers
+### Build the Containers
 
 Go to the project root directory, where is the docker-compose.yml file and add the following command:
 
 ```bash
 docker-compose up -d --build
 ```
+Example output:
+```
+ ✔ laravel.test                                  Built                                                                                                                              0.0s 
+ ✔ Network user-management_network           Created                                                                                                                            0.1s 
+ ✔ Volume "user-management_mysql"            Created                                                                                                                            0.0s 
+ ✔ Container user-management-mailpit-1       Started                                                                                                                            0.4s 
+ ✔ Container user-management-mysql-1         Started                                                                                                                            0.3s 
+ ✔ Container user-management-laravel-1  Started                                                                                                                            0.6s 
 
-### 5. Install Dependencies:
-
-Install PHP dependencies using Composer:
-
-```bash
-docker exec -it {php_fpm_container_name} composer install
 ```
 
-or
+The application will run in the Laravel container from our example it's name is `user-management-laravel-1`.
+
+### Enter the container
 ```bash
-docker exec -it {php_fpm_container_name} bash
+docker exec -it {laravel_container_name} bash
+```
+
+### Install Dependencies:
+
+```bash
 composer install
 ```
 
-### 6. Generate Application Key
+### Generate Application Key
 
 ```bash
-docker exec -it {php_fpm_container_name} php artisan key:generate
-```
-
-or
-```bash
-docker exec -it {php_fpm_container_name} bash
 php artisan key:generate
 ```
 
 
-### 7. Run Migrations
+### Run Migrations
 
 Run the database migrations with seed:
 
 ```bash
-docker exec -it {php_fpm_container_name} php artisan migrate:fresh
-```
-
-or
-
-```bash
-docker exec -it {php_fpm_container_name} bash
 php artisan migrate:fresh
 ```
 
-### 8. Install Npm Packages
-
+### Link Storage to public folder
 
 ```bash
-docker exec -it {node_container_name} npm install
+php artisan storage:link
+```
+### Make web user the owner of the storage
+
+```bash
+chown sail:sail storage -R
 ```
 
-or
+### Install Npm Packages
 
 ```bash
-docker exec -it {node_container_name} npm install
+npm install
+```
+
+### Start Vite server
+
+```bash
+npm run dev
 ```
 
 ## Running Tests
 
-Run the tests:
+### Enter the container
+
+```bash
+docker exec -it {laravel_container_name} bash
+```
+### Run the tests
 
 ```bash
 php artisan test
 ```
-
-or
-
-```bash
-docker exec -it {php_fpm_container} php artisan test
-```
-
 
 This will execute all tests in the tests directory and provide a summary of test results.
 
