@@ -16,7 +16,7 @@ class EnsureUserIsActive
     public function handle(Request $request, Closure $next): Response
     {
         if ($request->user()->status != 'active') {
-            if (!$request->user()->hasVerifiedEmail()) {
+            if ($request->user()->status != 'banned' && !$request->user()->hasVerifiedEmail()) {
                 return redirect('/verify-email');
             } else {
                 $reason = $request->user()->status == 'inactive' ? 'deactivated' : 'banned';

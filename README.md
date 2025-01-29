@@ -4,6 +4,8 @@
 
 - [Requirements](#requirements)
 - [Installation](#installation)
+- [Application Usage] (#applicationUsage)
+- [Seeding the database](#seeding-the-database)
 - [Running Tests](#running-tests)    
 - [Docker Installation](#docker-installation)    
 - [Docker Compose Installation](#docker-compose-installation)
@@ -162,7 +164,7 @@ Generated at Laravel Breeze installation.
 ### Admin Dashboard
 
 Home page of the admin pages. 
-As no other content was specified, this was used to display a diagram of the dashboard.
+As no other content was specified, user-related charts were added here.
 
 ### User Management
 
