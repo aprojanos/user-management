@@ -120,8 +120,6 @@ docker exec -it {node_container_name} npm install
 
 ## Running Tests
 
-Unit tests are written using PHPUnit. To run tests, first configure the .env.testing file
-
 Run the tests:
 
 ```bash
