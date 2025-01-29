@@ -2,13 +2,13 @@
 
 # Table of Contents
 
-- [Minimum Requirements](#minimum-requirements)
+- [Requirements](#requirements)
 - [Installation](#installation)
 - [Running Tests](#running-tests)    
 - [Docker Installation](#docker-installation)    
 - [Docker Compose Installation](#docker-compose-installation)
 
-## Minimum Requirements
+## Requirements
 
 - **Docker and Docker Compose**
 
