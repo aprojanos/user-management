@@ -4,7 +4,7 @@
 
 - [Requirements](#requirements)
 - [Installation](#installation)
-- [Application Usage] (#applicationUsage)
+- [Application Usage](#applicationUsage)
 - [Seeding the database](#seeding-the-database)
 - [Running Tests](#running-tests)    
 - [Docker Installation](#docker-installation)    
@@ -189,19 +189,8 @@ This will execute all tests in the tests directory and provide a summary of test
 
 ## Docker Installation
 
-### Linux
-
 - Ubuntu: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-22-04
-
-### Windows
-
-- https://docs.docker.com/desktop/windows/install/
 
 ## Docker Compose Installation
 
-### Linux
-
 Ubuntu: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-22-04
-
-### Windows
-- Docker automatically installs Docker Compose.
