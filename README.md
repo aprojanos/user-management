@@ -60,7 +60,7 @@ ADMIN_PASSWORD=the password for the created admin account (admin@example.com)
 Go to the project root directory, where is the docker-compose.yml file and add the following command:
 
 ```bash
-docker-compose up -d --build
+docker compose up -d --build
 ```
 Example output:
 ```
