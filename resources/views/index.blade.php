@@ -24,7 +24,7 @@
             <div class="relative min-h-screen flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
                 <div class="relative w-full ">
                     <header class="grid grid-cols-2 items-center gap-2 lg:grid-cols-3 px-6 bg-white">
-                        <img src="/storage/Erdsoft.png" alt="Erdsoft Logo" style="height:100px;"/>
+                        <img src="/Erdsoft.png" alt="Erdsoft Logo" style="height:100px;"/>
                         <div class="flex lg:justify-center lg:col-start-2">
                         </div>
                         @if (Route::has('login'))
