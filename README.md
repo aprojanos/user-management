@@ -4,7 +4,7 @@
 
 - [Requirements](#requirements)
 - [Installation](#installation)
-- [Application Usage](#applicationUsage)
+- [Application Usage](#application-usage)
 - [Seeding the database](#seeding-the-database)
 - [Running Tests](#running-tests)    
 - [Docker Installation](#docker-installation)    

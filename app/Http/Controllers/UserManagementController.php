@@ -11,6 +11,12 @@ use App\Models\Country;
 
 class UserManagementController extends Controller
 {
+    /**
+     * Display a listing of the users.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
+     */
     public function index(Request $request)
     {
         $users = User::paginate(10);
@@ -21,11 +27,22 @@ class UserManagementController extends Controller
 
 
 
+    /**
+     * Show the form for creating a new user.
+     *
+     * @return \Illuminate\View\View
+     */
     public function create()
     {
         return view('admin.user-management.create');
     }
 
+    /**
+     * Store a newly created user in the database.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -57,6 +74,12 @@ class UserManagementController extends Controller
     }
 
 
+    /**
+     * Show the form for editing an existing user.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\View\View
+     */
     public function edit(User $user)
     {
         $user->load('addresses');
@@ -64,6 +87,17 @@ class UserManagementController extends Controller
         return view('admin.user-management.edit', compact('user', 'countries'), ['addressTypes' => AddressType::cases()]);
     }
 
+    /**
+     * Update an existing user.
+     *
+     * This method validates the incoming request data, updates the user's information in the database,
+     * including an optional profile picture update, and redirects back to the user management page
+     * with a success message.
+     *
+     * @param  \Illuminate\Http\Request  $request The incoming HTTP request containing the updated user data.
+     * @param  \App\Models\User  $user The User model instance to be updated, injected via route model binding.
+     * @return \Illuminate\Http\RedirectResponse A redirect response to the user management page with a success message.
+     */
     public function update(Request $request, User $user)
     {
         $request->validate([
@@ -96,13 +130,24 @@ class UserManagementController extends Controller
         return redirect()->route('admin.user-management')->with('success', 'User updated successfully.');
     }
     
+    /**
+     * Removes the profile picture for the given user.
+     *
+     * @param  \App\Models\User  $user The user whose profile picture should be removed.
+     * @return \Illuminate\Http\RedirectResponse Redirects back to the previous page.
+     */
     public function removeProfilePicture(User $user)
     {
         $user->clearMediaCollection();
         return redirect()->back();
     }
     
-    
+     /**
+     * Delete a user.
+     *
+     * @param \App\Models\User $user The user to delete.
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(User $user)
     {
         $user->delete();
@@ -110,6 +155,12 @@ class UserManagementController extends Controller
         return redirect()->route('admin.user-management')->with('success', 'User deleted successfully.');
     }
 
+    /**
+     * Performs a bulk action on selected users.
+     *
+     * @param \Illuminate\Http\Request $request The request containing the action and selected user IDs.
+     * @return \Illuminate\Http\RedirectResponse Redirects to the user management page with a success or error message.
+     */
     public function bulkAction(Request $request)
     {
         $action = $request->input('action');

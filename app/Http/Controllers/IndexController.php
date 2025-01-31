@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
+    /**
+     * Retrieves a collection of addresses with latitude, longitude, city, country name, and user name, and returns a GeoJSON object for rendering on a map.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\View\View
+     */
     public function index(Request $request): View {
         $allAddresses = Address::join('users', 'users.id', '=', 'addresses.user_id')
             ->join('countries', 'countries.code', '=', 'addresses.country_code')

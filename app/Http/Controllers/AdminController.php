@@ -8,6 +8,15 @@ use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
+    /**
+     * Retrieves user data by country and status, and returns a view with the data.
+     *
+     * This method joins the `users` and `addresses` tables to get the user count by country,
+     * and also retrieves the user count by status. The data is then passed to the
+     * `admin.dashboard` view.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
         $usersByCountry = User::join('addresses', 'users.id', '=', 'addresses.user_id')
