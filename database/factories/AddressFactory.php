@@ -22,7 +22,7 @@ class AddressFactory extends Factory
         return [
             'user_id' => null,
             'country_code' => Country::inRandomOrder()->first()->code,
-            'zip_code' => substr(preg_replace('/[^0-9]/', '', fake()->postcode()), 0, 6),
+            'zip_code' => intval(substr(preg_replace('/[^0-9]/', '', fake()->postcode()), 0, 6)),
             'street_address' => fake()->streetAddress(),
             'contact_name' => fake()->name(),
             'contact_phone' => fake()->e164PhoneNumber(),

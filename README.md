@@ -33,11 +33,6 @@ Copy the .env.example file to .env
 cp .env.example .env
 ```
 
-Copy the .env.testing.example file to .env.testing
-```bash
-cp .env.testing.example .env.testing
-```
-
 ### Set Environment Variables
 In the .env file, you need to set the DB connection parameters and the admin user password to log in to the application for the first time.
 
