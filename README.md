@@ -16,8 +16,6 @@
 
 ## Installation
 
-First, need a fresh installation of Docker and Docker Compose
-
 ### Clone the Project
 
 Clone the repository to your local machine:
@@ -41,8 +39,7 @@ cp .env.testing.example .env.testing
 ```
 
 ### Set Environment Variables
-In the .env file, you need to set the DB connections and some Host and Elasticsearch params.
-Here is an example configuration:
+In the .env file, you need to set the DB connection parameters and the admin user password to log in to the application for the first time.
 
 ```env
 DB_CONNECTION=mysql
@@ -59,7 +56,7 @@ ADMIN_PASSWORD=the password for the created admin account (admin@example.com)
 
 ### Build the Containers
 
-Go to the project root directory, where is the docker-compose.yml file and add the following command:
+Go to the project root directory, where is the docker-compose.yml file located and run the following command:
 
 ```bash
 docker compose up -d --build
@@ -75,7 +72,7 @@ Example output:
 
 ```
 
-The application will run in the Laravel container from our example it's name is `user-management-laravel-1`.
+The application will run in the Laravel container named in our example: `user-management-laravel-1`.
 
 ### Enter the container
 ```bash
@@ -137,13 +134,13 @@ The application consists of the following pages:
 ### Home
 
 `Login`, `Register` functions, link to `Administration pages` for logged in users. 
-Since no other content was specified, the home page contains a `map` showing the locations of the users who have logged in.
+Since no other content was specified, the home page contains a `map` showing the locations of users.
 
 ### Login
 
 Generated at Laravel Breeze installation, slightly modified
 
-Please the account created during the migration process for the first login:
+The account created during the migration process for the `first login`:
 
 ```
 e-mail: admin@example.com
@@ -163,12 +160,12 @@ Generated at Laravel Breeze installation.
 
 ### Admin Dashboard
 
-Home page of the admin pages. 
+Home page of the administrative area. 
 As no other content was specified, user-related charts were added here.
 
 ### User Management
 
-This page contains the listing, uploading and modification of users as defined in the assignment.
+This page contains the listing, uploading and modification of users as defined in the assesment.
 
 ## Seeding the database
 
