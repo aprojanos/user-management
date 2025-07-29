@@ -57,6 +57,20 @@ jobs:
       - name: Generate Application Key
         run: php artisan key:generate
 
+      - name: Wait for MySQL Connection
+        run: |
+          sudo apt-get update -y && sudo apt-get install -y mysql-client
+          timeout=60
+          while ! mysql -h"mysql" -u"${{ env.DB_USERNAME }}" -p"${{ env.DB_PASSWORD }}" -e "SELECT 1" > /dev/null 2>&1; do
+            timeout=$((timeout - 1))
+            if [ $timeout -eq 0 ]; then
+              echo "Timed out waiting for MySQL to be ready."
+              exit 1
+            fi
+            sleep 1
+          done
+          echo "MySQL is ready!"
+
       - name: Run Migrations
         run: php artisan migrate:fresh --seed
 
