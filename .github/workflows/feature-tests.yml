@@ -27,9 +27,7 @@ jobs:
           MYSQL_USER: ${{ env.DB_USERNAME }}
           MYSQL_PASSWORD: ${{ env.DB_PASSWORD }}
         ports:
-          - 3306:3306
-        options: --health-check-interval=10s --health-check-timeout=5s --health-check-retries=3
-    
+          - 3306:3306    
     steps:
       - uses: actions/checkout@v3
 
