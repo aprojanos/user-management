@@ -14,10 +14,10 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_ROOT_PASSWORD: your_mysql_root_password
-          MYSQL_DATABASE: your_database_name
-          MYSQL_USER: your_database_username
-          MYSQL_PASSWORD: your_database_password
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: usermanagement
+          MYSQL_USER: sail
+          MYSQL_PASSWORD: password
         ports:
           - 3306:3306
         options: --health-check-interval=10s --health-check-timeout=5s --health-check-retries=3
