@@ -68,4 +68,3 @@ jobs:
 
       - name: Run Feature Tests
         run: php artisan test --testsuite Feature
-        continue-on-error: true
