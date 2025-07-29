@@ -32,7 +32,6 @@ jobs:
         options: >-
           --health-cmd="mysqladmin ping -h 127.0.0.1 -u root -ppassword"
           --health-interval=10s --health-timeout=5s --health-retries=10
-          --default-authentication-plugin=mysql_native_password
     steps:
       - uses: actions/checkout@v4
 
