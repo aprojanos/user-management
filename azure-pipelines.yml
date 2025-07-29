@@ -1,0 +1,57 @@
+trigger:
+  branches:
+    include:
+      - '*'  # Run on all branches (adjust as needed)
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  DB_HOST: 127.0.0.1
+  DB_PORT: 3306
+  DB_DATABASE: laravel_test
+  DB_USERNAME: laravel
+  DB_PASSWORD: secret
+  APP_ENV: testing
+
+services:
+  mysql:
+    image: mysql:8.0
+    ports:
+      - 3306:3306
+    env:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: $(DB_DATABASE)
+      MYSQL_USER: $(DB_USERNAME)
+      MYSQL_PASSWORD: $(DB_PASSWORD)
+    options: >-
+      --health-cmd="mysqladmin ping"
+      --health-interval=10s
+      --health-timeout=5s
+      --health-retries=3
+
+steps:
+  - task: UsePHPVersion@0
+    inputs:
+      version: '8.2'
+
+  - script: |
+      sudo apt-get update
+      sudo apt-get install -y unzip libzip-dev zip libonig-dev libxml2-dev
+      php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+      php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+    displayName: 'Install dependencies for PHP & Composer'
+
+  - checkout: self
+
+  - script: composer install --prefer-dist --no-progress --no-suggest
+    displayName: 'Install Composer dependencies'
+
+  - script: php artisan key:generate
+    displayName: 'Generate app key'
+
+  - script: php artisan migrate --force
+    displayName: 'Run migrations'
+
+  - script: php artisan test --testsuite=Feature
+    displayName: 'Run Feature Tests'
