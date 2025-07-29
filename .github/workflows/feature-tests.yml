@@ -62,6 +62,9 @@ jobs:
 
       - name: Run Migrations
         run: php artisan migrate:fresh --seed
+      
+      - name: Permissions on storage folder
+        run: chmod -R 777 storage
 
       - name: Run Feature Tests
         run: php artisan test --testsuite Feature
