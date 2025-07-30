@@ -27,5 +27,6 @@ stages:
             inputs:
               sshEndpoint: 'SSH-mano'
               runOptions: 'commands'
+              failOnStdErr: false
               commands: |
                 cd /home/azureuser/app && docker-compose down && docker-compose up --build -d
