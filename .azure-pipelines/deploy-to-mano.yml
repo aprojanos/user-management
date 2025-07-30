@@ -28,9 +28,7 @@ stages:
               sshEndpoint: 'SSH-mano'
               runOptions: 'commands'
               commands: |
-                cd /home/azureuser/app
-                pwd
-                ls -la
-                docker-compose down
-                docker-compose pull
+                cd /home/azureuser/app && \
+                docker-compose down && \
+                docker-compose pull && \
                 docker-compose up --build -d
