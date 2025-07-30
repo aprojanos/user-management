@@ -1,0 +1,35 @@
+trigger:
+  branches:
+    include:
+      - master
+
+stages:
+  - stage: Deploy
+    displayName: Deploy to Azure VM
+    jobs:
+      - job: DeployToVM
+        displayName: SSH into VM and Deploy
+        pool:
+          vmImage: ubuntu-latest
+
+        steps:
+          - checkout: self
+
+          - task: CopyFilesOverSSH@0
+            inputs:
+              sshEndpoint: 'SSH-mano'
+              sourceFolder: '$(Build.SourcesDirectory)'
+              contents: '**'
+              targetFolder: '/home/azureuser/app'
+              cleanTargetFolder: true
+
+          - task: SSH@0
+            inputs:
+              sshEndpoint: 'AzureVM-SSH'
+              runOptions: 'commands'
+              commands: |
+                cd /home/azureuser/app
+                cp .env.example .env
+                docker-compose down
+                docker-compose pull
+                docker-compose up --build -d
