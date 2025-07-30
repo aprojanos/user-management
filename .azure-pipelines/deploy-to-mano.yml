@@ -29,7 +29,6 @@ stages:
               runOptions: 'commands'
               commands: |
                 cd /home/azureuser/app
-                cp .env.example .env
                 docker-compose down
                 docker-compose pull
                 docker-compose up --build -d
